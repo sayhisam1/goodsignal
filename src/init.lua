@@ -82,6 +82,7 @@ function Connection:Disconnect()
 		end
 	end
 end
+Connection.disconnect = Connection.Disconnect
 
 -- Make Connection strict
 setmetatable(Connection, {
