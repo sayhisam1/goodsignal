@@ -113,12 +113,15 @@ function Signal:Connect(fn)
 	end
 	return connection
 end
+Signal.connect = Signal.Connect
+
 
 -- Disconnect all handlers. Since we use a linked list it suffices to clear the
 -- reference to the head handler.
 function Signal:DisconnectAll()
 	self._handlerListHead = false
 end
+Signal.disconnectAll = Signal.DisconnectAll
 
 -- Signal:Fire(...) implemented by running the handler functions on the
 -- coRunnerThread, and any time the resulting thread yielded without returning
@@ -136,6 +139,7 @@ function Signal:Fire(...)
 		item = item._next
 	end
 end
+Signal.fire = Signal.Fire
 
 -- Implement Signal:Wait() in terms of a temporary connection using
 -- a Signal:Connect() which disconnects itself.
@@ -148,6 +152,7 @@ function Signal:Wait()
 	end)
 	return coroutine.yield()
 end
+Signal.wait = Signal.Wait
 
 -- Make signal strict
 setmetatable(Signal, {
